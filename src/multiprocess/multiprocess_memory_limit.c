@@ -959,7 +959,8 @@ void lock_shrreg() {
             if (trials > 30) {  // 30 × 10s = 5 minutes
                 LOG_ERROR("Cannot acquire lock after 5 minutes, owner=%ld", current_owner);
                 LOG_ERROR("This should not happen - please report this bug");
-                LOG_ERROR("Workaround: Delete /tmp/cudevshr.cache and restart all processes");
+                LOG_ERROR("Workaround: Delete %s and restart all processes",
+                          MULTIPROCESS_SHARED_REGION_CACHE_DEFAULT);
                 exit(-1);
             }
             continue;  // Keep retrying
@@ -1400,6 +1401,7 @@ void initialized() {
     /* A process started from SSH, su -, sudo or cron has no limit variables.
        Load the override file first, so try_create_shrreg() below sees them. */
     load_env_from_file(ENV_OVERRIDE_FILE);
+    log_utils_init();
     pthread_mutex_init(&_kernel_mutex, NULL);
     char* _record_kernel_interval_env = getenv("RECORD_KERNEL_INTERVAL");
     if (_record_kernel_interval_env) {

@@ -90,7 +90,7 @@ foreach(TEST_SCRIPT ${TEST_SCRIPTS})
             _GNU_SOURCE)
         if (TEST_TARGET_NAME STREQUAL "test_override_env"
                 OR TEST_TARGET_NAME STREQUAL "test_shrreg_debug")
-            # Read a scratch file, never the production /overrideEnv.
+            # Read a scratch file, never the production overrideEnv.
             target_compile_definitions(${TEST_TARGET_NAME} PRIVATE
                 ENV_OVERRIDE_FILE=\"${CMAKE_CURRENT_BINARY_DIR}/override_env.test\")
         endif()

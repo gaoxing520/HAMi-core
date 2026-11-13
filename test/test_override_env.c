@@ -163,7 +163,8 @@ int main(void) {
     size_t i;
 
     /* Never let this test write the production path. */
-    if (strcmp(ENV_OVERRIDE_FILE, "/overrideEnv") == 0) {
+    if (strcmp(ENV_OVERRIDE_FILE, "/overrideEnv") == 0 ||
+        strcmp(ENV_OVERRIDE_FILE, "/usr/local/vgpu/overrideEnv") == 0) {
         fprintf(stderr, "build with -DENV_OVERRIDE_FILE=<scratch path>\n");
         return 1;
     }
